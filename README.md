@@ -111,8 +111,8 @@ ConcurrentHashMap gives better write concurrency than a synchronized map by chop
 I could have extended ConcurrentHashMap to check the version of the values after acquiring the shard lock.
  
 Instead, I chose to extend Cliff Click's awesome NonBlockingHashMap. He figured out that you don't have to lock at all on writes if you are very careful about
-the order of operations when you write into the map. For more information, I'll refer you to (his blog article)[http://www.azulsystems.com/blog/cliff/2007-03-26-non-blocking-hashtable]
-and (the source code)[https://github.com/boundary/high-scale-lib/blob/master/src/main/java/org/cliffc/high_scale_lib/NonBlockingHashMap.java] (this is a fork, which appears more
+the order of operations when you write into the map. For more information, I'll refer you to [his blog article](http://www.azulsystems.com/blog/cliff/2007-03-26-non-blocking-hashtable)
+and [the source code](https://github.com/boundary/high-scale-lib/blob/master/src/main/java/org/cliffc/high_scale_lib/NonBlockingHashMap.java) (this is a fork, which appears more
 actively maintained than Cliff's original one).
 
 The change I needed requires only the addition of the Versioned interface and the following line of code right before the new value gets set:
@@ -121,5 +121,5 @@ The change I needed requires only the addition of the Versioned interface and th
 
 Pretty simple eh?
 
-The rest of the code in here is copied from (https://github.com/boundary/high-scale-lib)[https://github.com/boundary/high-scale-lib] to support the OCCHashMap. It needed to be copied 
+The rest of the code in here is copied from [https://github.com/boundary/high-scale-lib](https://github.com/boundary/high-scale-lib) to support the OCCHashMap. It needed to be copied 
 becuase I didn't want to change the package-protected access on the relevant members.
