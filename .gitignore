@@ -2,3 +2,4 @@
 NBHM_test.txt
 *.iml
 target/
+release.properties
