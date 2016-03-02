@@ -11,7 +11,7 @@
   <groupId>org.vvcephei</groupId>
   <artifactId>occ-map</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0TEST1</version>
   <name>occ-map</name>
   <description>A micro-lib providing a threadsafe map which provides optimistic concurrency control.</description>
   <url>https://github.com/vvcephei/occ-map</url>
@@ -129,6 +129,7 @@
     <connection>scm:git:git@github.com:vvcephei/occ-map.git</connection>
     <developerConnection>scm:git:git@github.com:vvcephei/occ-map.git</developerConnection>
     <url>git@github.com:vvcephei/occ-map.git</url>
+    <tag>occ-map-1.0TEST1</tag>
   </scm>
 
   <developers>
