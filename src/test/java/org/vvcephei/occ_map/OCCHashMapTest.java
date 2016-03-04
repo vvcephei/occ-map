@@ -80,7 +80,7 @@ public class OCCHashMapTest extends TestCase {
       return result;
     }
 
-    @Override public int getVersion() {
+    @Override public long getVersion() {
       return version;
     }
 
@@ -122,7 +122,7 @@ public class OCCHashMapTest extends TestCase {
       return result;
     }
 
-    @Override public int getVersion() {
+    @Override public long getVersion() {
       return version;
     }
 
@@ -136,7 +136,7 @@ public class OCCHashMapTest extends TestCase {
 
     public VersionedObject(final int version) {this.version = version;}
 
-    @Override public int getVersion() {
+    @Override public long getVersion() {
       return version;
     }
 
@@ -530,7 +530,7 @@ public class OCCHashMapTest extends TestCase {
     }
     public String toString() { return String.format("%s:%d,%d,%d", getClass().getSimpleName(), _id, _type, _hash);  }
 
-    @Override public int getVersion() {
+    @Override public long getVersion() {
       return _version;
     }
   }
