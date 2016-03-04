@@ -355,6 +355,14 @@ public class OCCHashMap<TypeK, TypeV extends Versioned>
     final Object res = putIfMatch( this, _kvs, key, newVal, oldVal );
     assert !(res instanceof Prime);
     assert res != null;
+    if (res instanceof VersionConflictResult) {
+        // throwing here (as opposed to lower) to limit the confusingness factor of the stack trace
+      throw new VersionConflictException(
+          key,
+          ((Versioned)((VersionConflictResult)res).existingVal).getVersion(),
+          ((Versioned)((VersionConflictResult)res).putVal).getVersion()
+      );
+    }
     return res == TOMBSTONE ? null : (TypeV)res;
   }
 
@@ -670,7 +678,8 @@ public class OCCHashMap<TypeK, TypeV extends Versioned>
           (expVal == null || !expVal.equals(V)) ) // Expensive equals check at the last
         return V;                                 // Do not update!
 
-      if (V != null && putval instanceof Versioned && V instanceof Versioned && ((Versioned) putval).getVersion() <= ((Versioned) V).getVersion()) return V;
+      if (V != null && putval instanceof Versioned && V instanceof Versioned && ((Versioned) putval).getVersion() <= ((Versioned) V).getVersion())
+        return new VersionConflictResult(V, putval);
 
       // Actually change the Value in the Key,Value pair
       if( CAS_val(kvs, idx, V, putval ) ) {

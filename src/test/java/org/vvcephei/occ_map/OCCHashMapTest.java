@@ -223,9 +223,23 @@ public class OCCHashMapTest extends TestCase {
     assertEquals(_nbhm.get("k1"), v0("v0") );
     assertThat ( _nbhm.put("k1",v("v1", 1)), is(v0("v0")) );
     assertEquals(_nbhm.get("k1"), v("v1", 1) );
-    assertThat ( _nbhm.put("k1",v("v0", 0)), is(v("v1", 1)) );
+    try {
+      _nbhm.put("k1", v("v0", 0));
+      fail("Expected to get an exception");
+    } catch (VersionConflictException e) {
+      assertEquals("k1", e.getKey());
+      assertEquals(1l, e.getExistingVersion());
+      assertEquals(0l, e.getPutVersion());
+    }
     assertEquals(_nbhm.get("k1"), v("v1", 1) );
-    assertEquals(_nbhm.replace("k1",v0("v0")), v("v1", 1) );
+    try {
+      _nbhm.replace("k1",v0("v0"));
+      fail("Expected to get an exception");
+    } catch (VersionConflictException e) {
+      assertEquals("k1", e.getKey());
+      assertEquals(1l, e.getExistingVersion());
+      assertEquals(0l, e.getPutVersion());
+    }
     assertThat ( _nbhm.remove("k1"), is(v("v1", 1)) );
     assertFalse( _nbhm.containsKey("k1") );
     checkSizes (0);
